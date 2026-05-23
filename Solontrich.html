@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solontrich</title>
+    <style>
+        /* --- Core Layout & Design System --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            /* High-fidelity color match of the vibrant blue/dark radial layout */
+            background: radial-gradient(circle at 85% 50%, #1e4f8a 0%, #0d2040 45%, #050b14 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* --- Global Container --- */
+        .wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .wrapper {
+                padding: 0 2rem;
+            }
+        }
+
+        /* --- Top Header Navigation --- */
+        header {
+            width: 100%;
+            padding: 1rem 0; /* Tightened padding for header alignment */
+            flex-shrink: 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Container replacing the text logo */
+        .brand-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        /* Perfectly fitted brand logo for the top bar */
+        .nav-brand-logo {
+            height: 55px; /* Fixed height keeps it crisp and uniform */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        @media (min-width: 768px) {
+            .nav-brand-logo {
+                height: 65px; /* Marginally scaled up for desktop clarity */
+            }
+        }
+
+        /* Direct navigation button style mapped cleanly from sample */
+        .home-btn {
+            background-color: #ff5a79;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 90, 121, 0.3);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        /* --- Main Layout Section --- */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            padding: 1rem 0 3rem 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Desktop PC view: Locks into a perfect side-by-side layout with fluid scaling */
+        @media (min-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 4rem;
+            }
+        }
+
+        /* Hero Text Content Layout */
+        .hero-left h1 {
+            font-size: 2.2rem;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-left h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        /* Scaled down slightly on desktop PC to guarantee fit without scrolling */
+        @media (min-width: 1200px) {
+            .hero-left h1 {
+                font-size: 3.6rem;
+            }
+        }
+
+        .hero-subtext {
+            font-size: 1.1rem;
+            color: #a3c2f0;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* Narrative paragraphs built for rapid eye-movement */
+        .narrative-p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+            max-width: 580px;
+        }
+
+        .narrative-p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .narrative-p strong {
+            color: #ffffff;
+        }
+
+        /* --- Right Column: Dynamic Asset Scaling --- */
+        .hero-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 280px; /* Great proportion on mobile */
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5)); 
+        }
+
+        @media (min-width: 768px) {
+            .product-image {
+                max-width: 360px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .product-image {
+                max-width: 440px; /* Perfectly fills the right side on PC viewports */
+            }
+        }
+
+        /* --- Bottom Metrics Trust Row --- */
+        .metrics-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(5, 11, 20, 0.5);
+            padding: 2rem 0;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 1rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .metric-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.25rem;
+            opacity: 0.9;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.25rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        /* --- Base Footer --- */
+        footer {
+            width: 100%;
+            padding: 1.25rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+            background-color: #050b14;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="wrapper nav-container">
+            <img src="Solontrich.png" alt="Solontrich" class="nav-brand-logo">
+            </a>
+            <a href="index.html" class="home-btn">Home</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrapper hero-grid">
+            <div class="hero-left">
+                <h1>The Software Solutions For Personal Empowerment</h1>
+                <p class="hero-subtext">A personal mission by an independent creator.</p>
+                
+                <p class="narrative-p">
+                    Every software platform, tool, and system built under this moniker is designed for direct personal use. They are born inside an independent workspace, engineered deliberately to streamline workflows without licensing overhead or corporate bloat.
+                </p>
+                
+                <p class="narrative-p">
+                    The current digital space poses a significant barrier: <strong>basic tools have been heavily financialized</strong>. Freelancers trying to build their way up are routinely met with subscription models and gatekeepers charging massive fees for simple websites and code execution.
+                </p>
+
+                <p class="narrative-p">
+                    Operating directly within this economy, I understand the friction of engineering real security when standard development frameworks are priced out of reach. Solontrich is built explicitly to bypass that friction, offering custom architecture to help independent developers <strong>freelance their way to wealth</strong>.
+                </p>
+            </div>
+           </main>
+
+    <section class="metrics-section">
+        <div class="wrapper metrics-grid">
+            
+            <div class="metric-item">
+                <div class="metric-icon">🛠️</div>
+                <div class="metric-value">Personal</div>
+                <div class="metric-label">Systems & Utilities</div>
+            </div>
+
+            <div class="metric-item">
+                <div class="metric-icon">💻</div>
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Independent Custom Code</div>
+            </div>
+
+            <div class="metric-item">
+                <div class="metric-icon">🌐</div>
+                <div class="metric-value">Free Access</div>
+                <div class="metric-label">No Corporate Subscriptions</div>
+            </div>
+
+            <div class="metric-item">
+                <div class="metric-icon">🚀</div>
+                <div class="metric-value">Wealth Focus</div>
+                <div class="metric-label">Empowering Freelancers Early</div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrapper">
+            © Solontrich Systems. Built for freelancers.
+        </div>
+    </footer>
+
+</body>
+</html>
