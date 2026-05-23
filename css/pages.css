@@ -1,0 +1,118 @@
+/* ── Hero ────────────────────────────────────────────────*/
+.hero{padding:68px 28px 48px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 60% 0%,rgba(245,166,35,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(59,130,246,.05) 0%,transparent 70%)}
+.hero-content{position:relative;z-index:1;max-width:640px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--amber-dim);border:1px solid rgba(245,166,35,.25);color:var(--amber);font-size:12px;padding:5px 14px;border-radius:100px;margin-bottom:20px;font-weight:500}
+.hero h1{font-family:var(--font-display);font-size:clamp(26px,5vw,50px);font-weight:800;line-height:1.1;margin-bottom:16px;letter-spacing:-1px}
+.hero h1 em{color:var(--amber);font-style:normal}
+.hero p{color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:30px;max-width:480px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── Stats ───────────────────────────────────────────────*/
+.stats-row{display:flex;gap:24px;padding:20px 28px;margin:0 28px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);flex-wrap:wrap}
+.stat{flex:1;min-width:80px}
+.stat-num{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--amber)}
+.stat-label{font-size:12px;color:var(--muted);margin-top:2px}
+.pay-badges-row{display:flex;gap:8px;padding:14px 28px;flex-wrap:wrap}
+.pay-badge{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);padding:7px 14px;border-radius:100px;font-size:12px;font-weight:500}
+.pay-badge span{font-size:15px}
+
+/* ── Browse ──────────────────────────────────────────────*/
+.browse-header{padding:26px 28px 16px}
+.search-bar{display:flex;gap:9px;margin-bottom:13px}
+.search-input{flex:1;background:var(--navy3);border:1px solid var(--border);color:var(--white);padding:10px 14px;border-radius:10px;font-family:var(--font-body);font-size:14px;outline:none;transition:.2s}
+.search-input::placeholder{color:var(--muted)}
+.search-input:focus{border-color:var(--amber)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap}
+.filter-chip{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:100px;font-size:12px;cursor:pointer;transition:.2s;font-family:var(--font-body)}
+.filter-chip:hover,.filter-chip.on{background:var(--amber-dim);border-color:var(--amber);color:var(--amber)}
+
+/* ── Profile ─────────────────────────────────────────────*/
+.profile-header{padding:26px 28px 20px;background:linear-gradient(180deg,rgba(245,166,35,.06) 0%,transparent 100%);border-bottom:1px solid var(--border)}
+.profile-top{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.profile-avatar{width:66px;height:66px;border-radius:50%;border:2px solid var(--amber);background:var(--amber-dim);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;font-family:var(--font-display);flex-shrink:0}
+.profile-info{flex:1;min-width:150px}
+.profile-name{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:3px}
+.profile-title{color:var(--muted);font-size:13px;margin-bottom:8px}
+.profile-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:3px 9px;border-radius:6px;font-size:11px}
+.profile-stats{display:flex;gap:20px;margin-top:20px;flex-wrap:wrap}
+.pstat{text-align:center}
+.pstat-num{font-family:var(--font-display);font-size:19px;font-weight:700}
+.pstat-label{font-size:11px;color:var(--muted)}
+.profile-body{padding:20px 28px}
+.about-text{color:var(--muted);font-size:13px;line-height:1.75;margin-bottom:10px}
+.earnings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px}
+.earn-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
+.earn-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.earn-num{font-family:var(--font-display);font-size:20px;font-weight:700}
+
+/* ── Gig Detail ──────────────────────────────────────────*/
+.gig-detail{padding:22px 28px}
+.gig-detail-layout{display:grid;grid-template-columns:1fr 260px;gap:22px}
+.gig-detail-thumb{height:195px;border-radius:var(--radius);margin-bottom:16px;display:flex;align-items:center;justify-content:center;font-size:58px;border:1px solid var(--border);background:var(--navy3)}
+.gig-detail-title{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:9px;line-height:1.3}
+.gig-detail-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.detail-meta-item{font-size:12px;color:var(--muted)}
+.gig-detail-desc{color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:18px}
+.includes-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.includes-list li{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.includes-list li::before{content:'✓';color:var(--amber);font-weight:700;flex-shrink:0}
+.seller-pay-methods{display:flex;gap:7px;flex-wrap:wrap}
+.spm-badge{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:5px}
+.order-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:17px;position:sticky;top:72px}
+.order-price{font-family:var(--font-display);font-size:26px;font-weight:800;color:var(--amber);margin-bottom:3px}
+.order-delivery{font-size:12px;color:var(--muted);margin-bottom:13px}
+.order-btn{width:100%;background:var(--amber);color:var(--navy);border:none;padding:12px;border-radius:10px;font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;transition:.2s;margin-bottom:8px}
+.order-btn:hover{background:var(--amber2)}
+.contact-btn{width:100%;background:none;color:var(--white);border:1px solid var(--border);padding:11px;border-radius:10px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:.2s}
+.contact-btn:hover{background:var(--card)}
+.secure-note{text-align:center;font-size:11px;color:var(--muted);margin-top:10px}
+
+/* ── Checkout ────────────────────────────────────────────*/
+.checkout-summary{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 17px;margin-bottom:20px;display:flex;align-items:center;gap:13px}
+.cs-thumb{font-size:28px;flex-shrink:0}
+.cs-title{font-weight:500;font-size:14px;margin-bottom:2px}
+.cs-meta{color:var(--muted);font-size:12px}
+.cs-price{font-family:var(--font-display);font-size:21px;font-weight:700;color:var(--amber);margin-left:auto;flex-shrink:0}
+.pay-method-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}
+.pay-method-btn{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:13px 8px;text-align:center;cursor:pointer;transition:.2s;font-size:13px;font-weight:500}
+.pay-method-btn:hover{border-color:rgba(245,166,35,.4);background:var(--amber-dim)}
+.pay-method-btn.active{border-color:var(--amber);background:var(--amber-dim);color:var(--amber)}
+.pay-method-btn span{font-size:18px;display:block;margin-bottom:4px}
+.paypal-panel{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.paypal-logo{font-family:var(--font-display);font-size:20px;font-weight:800;color:#009cde;margin-bottom:11px}
+.paypal-address-box{background:var(--navy4);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;font-weight:500;word-break:break-all;color:var(--amber)}
+.crypto-selector{display:flex;gap:7px}
+.crypto-opt{background:var(--card);border:1px solid var(--border);padding:8px 18px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;transition:.2s}
+.crypto-opt:hover{border-color:rgba(245,166,35,.4)}
+.crypto-opt.active{background:var(--amber-dim);border-color:var(--amber);color:var(--amber)}
+.crypto-address-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:4px}
+.cac-label{font-size:11px;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.8px}
+.cac-address{font-size:13px;font-weight:500;word-break:break-all;color:var(--white);margin-bottom:11px;line-height:1.5}
+.copy-btn{background:var(--amber-dim);border:1px solid rgba(245,166,35,.3);color:var(--amber);padding:6px 13px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:.2s}
+.copy-btn:hover{background:rgba(245,166,35,.2)}
+.cac-network{font-size:11px;color:var(--muted);margin-top:7px}
+
+/* ── Transactions ────────────────────────────────────────*/
+.txn-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:9px;margin:16px 0 22px}
+.txn-stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
+.txn-stat-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.txn-stat-num{font-family:var(--font-display);font-size:19px;font-weight:700}
+.txn-row{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 17px;margin-bottom:9px;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.txn-icon{font-size:22px;flex-shrink:0}
+.txn-info{flex:1;min-width:150px}
+.txn-title{font-size:14px;font-weight:500;margin-bottom:2px}
+.txn-meta{font-size:12px;color:var(--muted)}
+.txn-amount{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--amber)}
+.txn-status{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;flex-shrink:0}
+.status-pending  {background:rgba(251,191,74,.12);color:var(--amber);border:1px solid rgba(251,191,74,.3)}
+.status-completed{background:rgba(34,197,94,.12); color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.status-failed   {background:rgba(239,68,68,.12);  color:var(--red);  border:1px solid rgba(239,68,68,.3)}
+
+/* ── Responsive ──────────────────────────────────────────*/
+@media(max-width:720px){.gig-detail-layout{grid-template-columns:1fr}.gig-detail-sidebar .order-card{position:static}}
+@media(max-width:600px){
+  .stats-row{margin:0 16px;padding:16px;gap:14px}
+  .hero,.section,.browse-header,.gig-detail,.post-page,.profile-header,.profile-body{padding-left:16px;padding-right:16px}
+}

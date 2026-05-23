@@ -1,0 +1,78 @@
+/* ── Auth Pages ──────────────────────────────────────────*/
+.auth-page{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 65px);padding:32px 16px}
+.auth-card{background:var(--navy3);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:420px}
+.auth-logo{text-align:center;margin-bottom:20px}
+.auth-logo img{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;padding:4px}
+.auth-title{font-family:var(--font-display);font-size:22px;font-weight:800;text-align:center;margin-bottom:6px}
+.auth-sub{color:var(--muted);font-size:14px;text-align:center;margin-bottom:26px}
+.auth-error{color:var(--red);font-size:13px;margin-bottom:12px;min-height:18px;text-align:center}
+.auth-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:18px}
+
+/* ── Forms ───────────────────────────────────────────────*/
+.post-page{padding:26px 28px;max-width:600px}
+.post-title{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:5px}
+.post-sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+.step-indicator{display:flex;gap:5px;margin-bottom:22px}
+.step{flex:1;height:3px;border-radius:2px;background:var(--border)}
+.step.done{background:var(--amber)}
+.form-group{margin-bottom:16px}
+.form-label{font-size:13px;font-weight:500;margin-bottom:6px;display:block}
+.form-label span{color:var(--muted);font-weight:400;font-size:11px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--navy3);border:1px solid var(--border);color:var(--white);padding:10px 13px;border-radius:10px;font-family:var(--font-body);font-size:14px;outline:none;transition:.2s;appearance:none}
+.form-textarea{resize:vertical;min-height:88px}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--amber)}
+.form-select option{background:var(--navy2)}
+.price-input-wrap{position:relative}
+.price-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--amber);font-weight:600;pointer-events:none}
+.price-input-wrap .form-input{padding-left:26px}
+.emoji-picker{display:flex;gap:6px;flex-wrap:wrap}
+.emoji-opt{font-size:19px;padding:6px 8px;cursor:pointer;border-radius:8px}
+.submit-btn{width:100%;background:var(--amber);color:var(--navy);border:none;padding:13px;border-radius:10px;font-family:var(--font-body);font-size:15px;font-weight:500;cursor:pointer;transition:.2s;margin-top:6px}
+.submit-btn:hover{background:var(--amber2)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+.info-box{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.2);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--muted);margin-bottom:4px;line-height:1.6}
+.link-btn{background:none;border:none;color:var(--amber);cursor:pointer;font-family:var(--font-body);font-size:13px;text-decoration:underline;padding:0}
+.back-btn{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);margin-bottom:16px;display:inline-flex;align-items:center;gap:5px}
+.back-btn:hover{color:var(--white)}
+
+/* ── Tab bar ─────────────────────────────────────────────*/
+.tab-bar{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:10px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:.2s}
+.tab-btn:hover{color:var(--white);background:var(--navy3)}
+.tab-btn.active{background:var(--amber-dim);border-color:var(--amber);color:var(--amber)}
+
+/* ── Gig Cards ───────────────────────────────────────────*/
+.gigs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:13px;padding:0 28px}
+.profile-body .gigs-grid{padding:0}
+.gig-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.25s}
+.gig-card:hover{border-color:rgba(245,166,35,.35);transform:translateY(-3px)}
+.gig-thumb{height:125px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;background:var(--navy4)}
+.gig-badge{position:absolute;top:8px;right:8px;background:var(--amber);color:var(--navy);font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px}
+.gig-body{padding:11px}
+.seller-row{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.avatar{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,166,35,.3)}
+.seller-name{font-size:11px;color:var(--muted)}
+.gig-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:8px}
+.gig-footer{display:flex;align-items:center;justify-content:space-between}
+.gig-rating{font-size:11px;color:var(--muted)}
+.gig-rating .star{color:var(--amber)}
+.gig-price{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--amber)}
+
+/* ── Category Cards ──────────────────────────────────────*/
+.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:15px 12px;cursor:pointer;transition:.2s;text-align:center}
+.cat-card:hover{border-color:rgba(245,166,35,.45);background:var(--amber-dim);transform:translateY(-2px)}
+.cat-icon{font-size:22px;margin-bottom:6px}
+.cat-name{font-size:12px;font-weight:500}
+
+/* ── Empty state ─────────────────────────────────────────*/
+.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 24px;text-align:center}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:.85}
+.empty-heading{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:8px}
+.empty-sub{color:var(--muted);font-size:14px;line-height:1.7;max-width:320px}
+
+/* ── Responsive ──────────────────────────────────────────*/
+@media(max-width:600px){
+  .auth-card{padding:24px 20px}
+  .gigs-grid{padding:0 16px}
+}
