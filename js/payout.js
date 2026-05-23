@@ -1,12 +1,12 @@
 // ── Payout module ─────────────────────────────────────────
 import { db } from './db.js';
-import { currentUser, currentProfile } from './auth.js';
+import { state } from './state.js';
 import { showToast } from './utils.js';
 
 export async function loadPayoutForm() {
-  if (!currentUser) return;
+  if (!state.currentUser) return;
   const { data } = await db.from('seller_payment_details')
-    .select('*').eq('user_id', currentUser.id).maybeSingle();
+    .select('*').eq('user_id', state.currentUser.id).maybeSingle();
   if (!data) return;
   document.getElementById('po-bank-name').value      = data.bank_name      || '';
   document.getElementById('po-account-name').value   = data.account_name   || '';
@@ -28,14 +28,17 @@ window.switchPayoutTab = function(tab) {
 };
 
 window.savePayoutDetails = async function() {
-  if (!currentUser) return;
+  if (!state.currentUser) return;
   const btn = document.getElementById('payout-save-btn');
-  btn.disabled = true; btn.textContent = 'Saving…';
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
 
-  const sellerName = currentProfile?.display_name || currentProfile?.full_name || currentUser.email;
+  const sellerName = state.currentProfile?.display_name
+    || state.currentProfile?.full_name
+    || state.currentUser.email;
 
   const payload = {
-    user_id:        currentUser.id,
+    user_id:        state.currentUser.id,
     seller_name:    sellerName,
     bank_name:      document.getElementById('po-bank-name').value.trim()      || null,
     account_name:   document.getElementById('po-account-name').value.trim()   || null,
@@ -47,18 +50,19 @@ window.savePayoutDetails = async function() {
     eth_address:    document.getElementById('po-eth').value.trim()            || null,
     usdt_address:   document.getElementById('po-usdt').value.trim()           || null,
     crypto_network: document.getElementById('po-crypto-network').value        || null,
-    updated_at:     new Date().toISOString()
+    updated_at:     new Date().toISOString(),
   };
 
   const { data: existing } = await db.from('seller_payment_details')
-    .select('id').eq('user_id', currentUser.id).maybeSingle();
+    .select('id').eq('user_id', state.currentUser.id).maybeSingle();
 
   const { error } = existing
     ? await db.from('seller_payment_details').update(payload).eq('id', existing.id)
     : await db.from('seller_payment_details').insert(payload);
 
-  btn.disabled = false; btn.textContent = 'Save Payout Details';
-  if (error) { showToast('Could not save. Try again.'); return; }
+  btn.disabled = false;
+  btn.textContent = 'Save Payout Details';
+  if (error) { console.error(error); showToast('Could not save. Try again.'); return; }
   showToast('✅ Payout details saved!');
   setTimeout(() => window.goPage('profile'), 1400);
 };
