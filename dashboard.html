@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WFT — Owner Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-word">WF<span>T</span></div>
+      <div class="logo-sub">Owner Dashboard</div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-group-label">Overview</div>
+      <a class="nav-item active" data-page="overview" onclick="goPage('overview')">
+        <span class="nav-icon">⊞</span> Dashboard
+      </a>
+
+      <div class="nav-group-label">Platform</div>
+      <a class="nav-item" data-page="orders" onclick="goPage('orders')">
+        <span class="nav-icon">🛒</span> Orders
+      </a>
+      <a class="nav-item" data-page="transactions" onclick="goPage('transactions')">
+        <span class="nav-icon">💳</span> Transactions
+      </a>
+      <a class="nav-item" data-page="gigs" onclick="goPage('gigs')">
+        <span class="nav-icon">💼</span> Gigs
+      </a>
+      <a class="nav-item" data-page="reviews" onclick="goPage('reviews')">
+        <span class="nav-icon">⭐</span> Reviews
+      </a>
+      <a class="nav-item" data-page="disputes" onclick="goPage('disputes')">
+        <span class="nav-icon">⚠️</span> Disputes
+      </a>
+
+      <div class="nav-group-label">People</div>
+      <a class="nav-item" data-page="users" onclick="goPage('users')">
+        <span class="nav-icon">👥</span> Users
+      </a>
+      <a class="nav-item" data-page="freelancers" onclick="goPage('freelancers')">
+        <span class="nav-icon">🧑‍💻</span> Freelancers
+      </a>
+      <a class="nav-item" data-page="buyers" onclick="goPage('buyers')">
+        <span class="nav-icon">🧑‍💼</span> Buyers
+      </a>
+
+      <div class="nav-group-label">Support</div>
+      <a class="nav-item" data-page="messages" onclick="goPage('messages')">
+        <span class="nav-icon">💬</span> User Messages
+        <span class="nav-badge" id="unread-badge" style="display:none">0</span>
+      </a>
+      <a class="nav-item" data-page="guest-support" onclick="goPage('guest-support')">
+        <span class="nav-icon">🆘</span> Guest Support
+        <span class="nav-badge" id="guest-badge" style="display:none">0</span>
+      </a>
+
+      <div class="nav-group-label">Analytics</div>
+      <a class="nav-item" data-page="revenue" onclick="goPage('revenue')">
+        <span class="nav-icon">📈</span> Revenue
+      </a>
+      <a class="nav-item" data-page="activity" onclick="goPage('activity')">
+        <span class="nav-icon">🔥</span> Activity
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sf-avatar">OW</div>
+      <div>
+        <div class="sf-name">Owner</div>
+        <div class="sf-role">wft-freelancer</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <div class="main-wrap">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-left">
+        <h1 class="topbar-title" id="topbar-title">Dashboard</h1>
+        <span class="topbar-sub" id="last-updated">Connecting…</span>
+      </div>
+      <div class="topbar-right">
+        <button class="refresh-btn" onclick="loadCurrentPage()" id="refresh-btn">
+          <span id="refresh-icon">↻</span> Refresh
+        </button>
+      </div>
+    </header>
+
+    <!-- ══ OVERVIEW PAGE ══ -->
+    <section class="page active" id="page-overview">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon kpi-green">👥</div>
+          <div class="kpi-label">Total Users</div>
+          <div class="kpi-value" id="kpi-users">—</div>
+          <div class="kpi-sub">Registered profiles</div>
+        </div>
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-icon kpi-blue">💼</div>
+          <div class="kpi-label">Total Gigs</div>
+          <div class="kpi-value" id="kpi-gigs">—</div>
+          <div class="kpi-sub">Listed services</div>
+        </div>
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-icon kpi-amber">🛒</div>
+          <div class="kpi-label">Total Orders</div>
+          <div class="kpi-value" id="kpi-orders">—</div>
+          <div class="kpi-sub">All time</div>
+        </div>
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon kpi-green">💰</div>
+          <div class="kpi-label">Revenue (ZAR)</div>
+          <div class="kpi-value amber" id="kpi-revenue">—</div>
+          <div class="kpi-sub">Completed transactions</div>
+        </div>
+        <div class="kpi-card kpi-red">
+          <div class="kpi-icon kpi-red">⏳</div>
+          <div class="kpi-label">Pending Orders</div>
+          <div class="kpi-value danger" id="kpi-pending">—</div>
+          <div class="kpi-sub">Awaiting action</div>
+        </div>
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon kpi-purple">💬</div>
+          <div class="kpi-label">Open Support</div>
+          <div class="kpi-value" id="kpi-support">—</div>
+          <div class="kpi-sub">Unresolved tickets</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Activity breakdown</h2></div>
+        <div class="charts-row">
+          <div class="chart-card">
+            <div class="chart-card-title">Order status</div>
+            <div class="chart-legend" id="order-legend"></div>
+            <div class="chart-wrap"><canvas id="orderChart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Transaction status</div>
+            <div class="chart-legend" id="txn-legend"></div>
+            <div class="chart-wrap"><canvas id="txnChart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Gigs by category</div>
+            <div class="chart-wrap chart-wrap-lg"><canvas id="catChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Platform snapshot</h2></div>
+        <div class="twin-row">
+          <div class="info-card">
+            <div class="info-card-title">User role breakdown</div>
+            <div id="roles-container"><span class="loading-text">Loading…</span></div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Top gigs by rating ⭐</div>
+            <div id="top-gigs"><span class="loading-text">Loading…</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recent orders</h2>
+          <span class="section-sub" id="orders-count"></span>
+        </div>
+        <div class="table-card" id="overview-orders"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recent transactions</h2>
+          <span class="section-sub" id="txns-count"></span>
+        </div>
+        <div class="table-card" id="overview-txns"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Recent signups</h2></div>
+        <div class="info-card">
+          <div id="overview-users"><span class="loading-text">Loading…</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ORDERS PAGE ══ -->
+    <section class="page" id="page-orders">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">All Orders</h2>
+          <span class="section-sub" id="all-orders-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="orders-search" placeholder="Search by buyer name or email…" oninput="filterTable('orders')" />
+        </div>
+        <div class="table-card" id="all-orders-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ TRANSACTIONS PAGE ══ -->
+    <section class="page" id="page-transactions">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">All Transactions</h2>
+          <span class="section-sub" id="all-txns-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="txns-search" placeholder="Search by gig title or buyer…" oninput="filterTable('transactions')" />
+        </div>
+        <div class="table-card" id="all-txns-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ GIGS PAGE ══ -->
+    <section class="page" id="page-gigs">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">All Gigs</h2>
+          <span class="section-sub" id="all-gigs-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="gigs-search" placeholder="Search by title, seller or category…" oninput="filterTable('gigs')" />
+        </div>
+        <div class="gigs-grid" id="all-gigs-grid"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ REVIEWS PAGE ══ -->
+    <section class="page" id="page-reviews">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Reviews</h2>
+          <span class="section-sub" id="all-reviews-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="reviews-search" placeholder="Search reviews…" oninput="filterTable('reviews')" />
+        </div>
+        <div class="table-card" id="all-reviews-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ DISPUTES PAGE ══ -->
+    <section class="page" id="page-disputes">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Disputes</h2>
+          <span class="section-sub" id="all-disputes-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="disputes-search" placeholder="Search disputes…" oninput="filterTable('disputes')" />
+        </div>
+        <div class="table-card" id="all-disputes-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ USERS PAGE ══ -->
+    <section class="page" id="page-users">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">All Users</h2>
+          <span class="section-sub" id="all-users-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="users-search" placeholder="Search by name or email…" oninput="filterTable('users')" />
+        </div>
+        <div class="table-card" id="all-users-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ FREELANCERS PAGE ══ -->
+    <section class="page" id="page-freelancers">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Freelancers</h2>
+          <span class="section-sub" id="all-freelancers-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="freelancers-search" placeholder="Search freelancers…" oninput="filterTable('freelancers')" />
+        </div>
+        <div class="table-card" id="all-freelancers-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ BUYERS PAGE ══ -->
+    <section class="page" id="page-buyers">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Buyers</h2>
+          <span class="section-sub" id="all-buyers-count"></span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="buyers-search" placeholder="Search buyers…" oninput="filterTable('buyers')" />
+        </div>
+        <div class="table-card" id="all-buyers-table"><span class="loading-text">⟳ Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ REVENUE PAGE ══ -->
+    <section class="page" id="page-revenue">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-icon kpi-amber">💵</div>
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value amber" id="rev-total">—</div>
+          <div class="kpi-sub">All completed txns</div>
+        </div>
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon kpi-green">📅</div>
+          <div class="kpi-label">This Month</div>
+          <div class="kpi-value" id="rev-month">—</div>
+          <div class="kpi-sub">Current month</div>
+        </div>
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-icon kpi-blue">📊</div>
+          <div class="kpi-label">Avg per Order</div>
+          <div class="kpi-value" id="rev-avg">—</div>
+          <div class="kpi-sub">Completed orders</div>
+        </div>
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon kpi-purple">🔄</div>
+          <div class="kpi-label">Refunds</div>
+          <div class="kpi-value danger" id="rev-refunds">—</div>
+          <div class="kpi-sub">Refunded transactions</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Revenue breakdown</h2></div>
+        <div class="charts-row" style="grid-template-columns:1fr 1fr">
+          <div class="chart-card">
+            <div class="chart-card-title">Revenue by status</div>
+            <div class="chart-legend" id="rev-legend"></div>
+            <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Top earning gigs</div>
+            <div class="chart-wrap chart-wrap-lg"><canvas id="earningChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ACTIVITY PAGE ══ -->
+    <section class="page" id="page-activity">
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Platform activity</h2></div>
+        <div class="charts-row" style="grid-template-columns:1fr 1fr">
+          <div class="chart-card">
+            <div class="chart-card-title">Orders over time</div>
+            <div class="chart-wrap chart-wrap-lg"><canvas id="ordersTimeChart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-title">New users over time</div>
+            <div class="chart-wrap chart-wrap-lg"><canvas id="usersTimeChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><h2 class="section-title">Recent activity feed</h2></div>
+        <div class="info-card" id="activity-feed"><span class="loading-text">Loading…</span></div>
+      </div>
+    </section>
+
+    <!-- ══ USER MESSAGES PAGE ══ -->
+    <section class="page page-chat" id="page-messages">
+      <div class="chat-page-wrap">
+
+        <!-- Thread list -->
+        <div class="chat-threads-panel">
+          <div class="chat-panel-header">
+            <div class="chat-panel-title">User Messages</div>
+            <div class="chat-live-dot" id="chat-live-dot" title="Real-time connected"></div>
+          </div>
+          <div class="chat-search-wrap">
+            <input class="chat-search-input" id="thread-search" placeholder="Search conversations…" oninput="filterThreads('messages')" />
+          </div>
+          <div class="chat-thread-list" id="thread-list"><span class="loading-text">⟳ Loading…</span></div>
+        </div>
+
+        <!-- Chat window -->
+        <div class="chat-window" id="chat-window">
+          <div class="chat-empty-state" id="chat-empty-state">
+            <div class="chat-empty-icon">💬</div>
+            <div class="chat-empty-title">Select a conversation</div>
+            <div class="chat-empty-sub">Choose a user from the left to view and reply to their messages</div>
+          </div>
+          <div class="chat-convo" id="chat-convo" style="display:none">
+            <div class="chat-convo-header">
+              <div class="chat-convo-user">
+                <div class="chat-convo-avatar" id="convo-avatar">?</div>
+                <div>
+                  <div class="chat-convo-name" id="convo-name">—</div>
+                  <div class="chat-convo-meta" id="convo-meta">—</div>
+                </div>
+              </div>
+              <div class="chat-convo-actions">
+                <span class="chat-status-pill" id="convo-status-pill">● LIVE</span>
+              </div>
+            </div>
+            <div class="chat-messages-wrap" id="chat-messages-wrap">
+              <div class="chat-messages-inner" id="chat-messages-inner"></div>
+            </div>
+            <div class="chat-input-area">
+              <div class="chat-input-row">
+                <textarea class="chat-textarea" id="chat-textarea" placeholder="Reply as Owner…" rows="1" maxlength="500"></textarea>
+                <button class="chat-send-btn" id="chat-send-btn" onclick="sendOwnerReply('messages')" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+              <div class="chat-input-meta">
+                <span id="chat-char-count">0 / 500</span>
+                <span>Enter to send · Shift+Enter for new line</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ GUEST SUPPORT PAGE ══ -->
+    <section class="page page-chat" id="page-guest-support">
+      <div class="chat-page-wrap">
+
+        <!-- Thread list -->
+        <div class="chat-threads-panel">
+          <div class="chat-panel-header">
+            <div class="chat-panel-title">Guest Support</div>
+            <div class="chat-live-dot" id="guest-live-dot" title="Real-time connected"></div>
+          </div>
+          <div class="chat-search-wrap">
+            <input class="chat-search-input" id="guest-thread-search" placeholder="Search guest tickets…" oninput="filterThreads('guest')" />
+          </div>
+          <div class="chat-thread-list" id="guest-thread-list"><span class="loading-text">⟳ Loading…</span></div>
+        </div>
+
+        <!-- Chat window -->
+        <div class="chat-window" id="guest-chat-window">
+          <div class="chat-empty-state" id="guest-empty-state">
+            <div class="chat-empty-icon">🆘</div>
+            <div class="chat-empty-title">No ticket selected</div>
+            <div class="chat-empty-sub">Select a guest support ticket from the left to respond</div>
+          </div>
+          <div class="chat-convo" id="guest-chat-convo" style="display:none">
+            <div class="chat-convo-header">
+              <div class="chat-convo-user">
+                <div class="chat-convo-avatar" id="guest-convo-avatar">?</div>
+                <div>
+                  <div class="chat-convo-name" id="guest-convo-name">—</div>
+                  <div class="chat-convo-meta" id="guest-convo-meta">—</div>
+                </div>
+              </div>
+              <div class="chat-convo-actions">
+                <span class="chat-status-pill guest-pill">● GUEST</span>
+              </div>
+            </div>
+            <div class="chat-messages-wrap" id="guest-messages-wrap">
+              <div class="chat-messages-inner" id="guest-messages-inner"></div>
+            </div>
+            <div class="chat-input-area">
+              <div class="chat-input-row">
+                <textarea class="chat-textarea" id="guest-textarea" placeholder="Reply to guest…" rows="1" maxlength="500"></textarea>
+                <button class="chat-send-btn" id="guest-send-btn" onclick="sendOwnerReply('guest')" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+              <div class="chat-input-meta">
+                <span id="guest-char-count">0 / 500</span>
+                <span>Enter to send · Shift+Enter for new line</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /main-wrap -->
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/adminchat.js"></script>
+</body>
+</html>
