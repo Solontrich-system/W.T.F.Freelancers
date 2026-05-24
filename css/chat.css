@@ -1,0 +1,123 @@
+/* ── Chat System ─────────────────────────────────────────
+   Three chat types:
+   1. Direct Messages  — buyer ↔ seller per-gig
+   2. Support Channel  — user ↔ owner/admin
+   3. (Canvas bg from NEXUS, adapted to WTF palette)
+   ─────────────────────────────────────────────────────── */
+
+:root {
+  --neon:      #00ffb4;
+  --neon-dim:  rgba(0,255,180,0.12);
+  --neon-glow: rgba(0,255,180,0.06);
+  --chat-bg:   #080b12;
+  --chat-panel:#0d1117;
+  --chat-surf: #121820;
+  --chat-hi:   #1a2230;
+  --mono:      'Share Tech Mono', monospace;
+}
+
+/* ── Chat Hub page ───────────────────────────────────────*/
+.chat-hub{padding:28px;max-width:900px;margin:0 auto}
+.chat-hub-title{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:4px}
+.chat-hub-sub{color:var(--muted);font-size:13px;margin-bottom:24px}
+
+.chat-type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:32px}
+.chat-type-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.chat-type-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);transform:translateX(-100%);transition:transform .5s}
+.chat-type-card:hover{border-color:rgba(0,255,180,.35);transform:translateY(-2px)}
+.chat-type-card:hover::before{transform:translateX(100%)}
+.chat-type-card.support-card:hover{border-color:rgba(245,166,35,.45)}
+.chat-type-card.support-card::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.ctc-icon{font-size:28px;margin-bottom:10px}
+.ctc-title{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:5px;color:var(--neon)}
+.support-card .ctc-title{color:var(--amber)}
+.ctc-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.ctc-badge{display:inline-block;background:var(--neon-dim);border:1px solid rgba(0,255,180,.25);color:var(--neon);font-size:10px;padding:2px 8px;border-radius:20px;margin-top:8px;font-family:var(--mono)}
+.support-card .ctc-badge{background:var(--amber-dim);border-color:rgba(245,166,35,.3);color:var(--amber)}
+
+.chat-dm-list{margin-top:8px}
+.chat-dm-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:.2s;margin-bottom:8px}
+.chat-dm-item:hover{border-color:rgba(0,255,180,.3);background:var(--neon-dim)}
+.chat-dm-avatar{width:36px;height:36px;border-radius:50%;background:var(--neon-dim);border:1px solid rgba(0,255,180,.3);color:var(--neon);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:var(--font-display)}
+.chat-dm-info{flex:1;min-width:0}
+.chat-dm-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.chat-dm-preview{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-dm-time{font-size:10px;color:var(--muted);flex-shrink:0}
+.chat-dm-unread{width:8px;height:8px;border-radius:50%;background:var(--neon);flex-shrink:0}
+
+/* ── Chat Room UI ────────────────────────────────────────*/
+#page-chat-room{background:var(--chat-bg)}
+.chat-room-wrap{display:flex;flex-direction:column;height:calc(100vh - 65px);position:relative}
+
+/* Canvas bg */
+.chat-canvas-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.3}
+
+/* Chat room header */
+.chat-room-header{flex-shrink:0;background:var(--chat-panel);border-bottom:1px solid rgba(0,255,180,.12);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.crh-left{display:flex;align-items:center;gap:12px}
+.crh-back{background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:var(--font-body);transition:.15s}
+.crh-back:hover{color:var(--white);border-color:rgba(0,255,180,.4)}
+.crh-room-name{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--neon);letter-spacing:1px}
+.support-room .crh-room-name{color:var(--amber)}
+.crh-status{font-size:10px;letter-spacing:2px;padding:2px 8px;border-radius:20px;border:1px solid rgba(0,255,180,.2);color:var(--muted);transition:.3s;font-family:var(--mono)}
+.crh-status.live{color:var(--neon);border-color:rgba(0,255,180,.4);background:rgba(0,255,180,.06)}
+.crh-right{display:flex;align-items:center;gap:10px}
+.crh-online{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.crh-typing{font-size:11px;color:var(--muted);font-family:var(--mono);font-style:italic;animation:blink-chat 1.5s infinite}
+
+/* Messages area */
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;position:relative;z-index:1}
+.chat-messages::-webkit-scrollbar{width:3px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--chat-hi);border-radius:2px}
+.chat-messages-inner{display:flex;flex-direction:column;gap:3px;margin-top:auto}
+
+/* System / date divider */
+.chat-sys-msg{text-align:center;font-size:10px;color:rgba(0,255,180,.3);letter-spacing:2px;padding:10px 0;font-family:var(--mono)}
+.chat-date-divider{text-align:center;font-size:10px;color:var(--muted);letter-spacing:1px;padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:8px 0;font-family:var(--mono)}
+
+/* Message bubbles */
+.chat-msg{display:flex;flex-direction:column;gap:2px;margin-bottom:6px;animation:chat-in .2s ease both}
+.chat-msg-header{display:flex;align-items:baseline;gap:8px;padding:0 10px}
+.chat-msg-name{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;font-family:var(--mono)}
+.chat-msg-time{font-size:10px;color:rgba(255,255,255,.2);font-family:var(--mono)}
+.chat-msg-bubble{max-width:72%;padding:9px 13px;border-radius:4px;line-height:1.65;font-size:13px;word-break:break-word;font-family:var(--mono)}
+
+/* Incoming */
+.chat-msg.incoming{align-items:flex-start}
+.chat-msg.incoming .chat-msg-name{color:var(--neon)}
+.chat-msg.incoming .chat-msg-bubble{background:var(--chat-surf);border:1px solid rgba(0,255,180,.12);color:#c8d6e5;border-bottom-left-radius:1px}
+
+/* Outgoing */
+.chat-msg.outgoing{align-items:flex-end}
+.chat-msg.outgoing .chat-msg-header{flex-direction:row-reverse}
+.chat-msg.outgoing .chat-msg-name{color:var(--amber)}
+.chat-msg.outgoing .chat-msg-bubble{background:var(--chat-hi);border:1px solid rgba(255,179,64,.15);color:#c8d6e5;border-bottom-right-radius:1px}
+
+/* Admin/owner messages */
+.chat-msg.admin .chat-msg-name{color:#ff5a79}
+.chat-msg.admin .chat-msg-bubble{background:rgba(255,90,121,.06);border:1px solid rgba(255,90,121,.2);color:#c8d6e5}
+.chat-msg.admin .chat-msg-bubble::before{content:'[ADMIN] ';color:#ff5a79;font-size:10px;font-weight:700}
+
+/* Input area */
+.chat-input-wrap{flex-shrink:0;background:var(--chat-panel);border-top:1px solid rgba(0,255,180,.1);padding:12px 16px;display:flex;align-items:center;gap:10px;position:relative;z-index:2}
+.chat-input-prefix{color:var(--neon);font-family:var(--mono);font-size:15px;opacity:.5;flex-shrink:0}
+.chat-msg-input{flex:1;background:transparent;border:none;outline:none;color:#c8d6e5;font-family:var(--mono);font-size:13px;letter-spacing:.5px;caret-color:var(--neon)}
+.chat-msg-input::placeholder{color:rgba(255,255,255,.15);font-size:11px;letter-spacing:2px}
+.chat-send-btn{width:36px;height:36px;background:transparent;border:1px solid rgba(0,255,180,.2);border-radius:4px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.chat-send-btn:not(:disabled):hover{border-color:var(--neon);color:var(--neon);box-shadow:0 0 10px rgba(0,255,180,.12)}
+.chat-send-btn:disabled{opacity:.25;cursor:not-allowed}
+.chat-char-count{font-size:10px;color:rgba(255,255,255,.2);font-family:var(--mono);padding:0 16px 6px;text-align:right;background:var(--chat-panel)}
+
+/* Empty DM list state */
+.chat-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px}
+.chat-empty-icon{font-size:36px;margin-bottom:12px;opacity:.6}
+
+/* Support badge on nav */
+.nav-btn.chat-nav{position:relative}
+.chat-nav-dot{position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--neon);display:none}
+.chat-nav-dot.show{display:block}
+
+/* ── Animations ──────────────────────────────────────────*/
+@keyframes chat-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink-chat{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes scan-h{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
