@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>W.T.F. Freelancers</title>
+  <link rel="icon" href="logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/pages.css"/>
+  <link rel="stylesheet" href="css/legal.css"/>
+  <link rel="stylesheet" href="css/chat.css"/>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="logo" onclick="goPage('home')">
+    <img src="logo.png" alt="WTF" class="logo-img"/>
+    <span class="logo-text">W.T.F. <span class="logo-sub">Freelancers</span></span>
+  </div>
+  <button class="nav-toggle" id="nav-toggle">&#9776;</button>
+  <div class="nav-links" id="nav-links">
+    <button class="nav-btn active" id="nav-home"    onclick="goPage('home')">Home</button>
+    <button class="nav-btn"        id="nav-browse"  onclick="goPage('browse')">Browse</button>
+    <button class="nav-btn"        id="nav-about"   onclick="goPage('about')">About</button>
+    <button class="nav-btn"        id="nav-profile" onclick="goPage('profile')" style="display:none">My Profile</button>
+    <button class="nav-btn"        id="nav-txns"    onclick="goPage('txns')"    style="display:none">Transactions</button>
+    <button class="nav-btn chat-nav" id="nav-chat"  onclick="goPage('chat')"   style="display:none">💬 Messages<span class="chat-nav-dot" id="chat-nav-dot"></span></button>
+    <button class="nav-btn cta"    id="nav-post"    onclick="goPage('post')"    style="display:none">+ Post Gig</button>
+    <div id="nav-auth-guest" style="display:flex;gap:6px;margin-left:8px">
+      <button class="nav-btn" onclick="goPage('login')">Log in</button>
+      <button class="nav-btn cta" onclick="goPage('register')">Sign up</button>
+    </div>
+    <div id="nav-auth-user" style="display:none;align-items:center;gap:10px;margin-left:8px">
+      <div class="nav-avatar" id="nav-avatar" onclick="goPage('profile')">?</div>
+      <button class="nav-btn" onclick="logout()">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Page mount point — partials injected here ── -->
+<div id="pages-root"></div>
+
+<!-- ── Footer ──────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-top">
+    <nav class="footer-links">
+      <button class="footer-link" onclick="goPage('about')">About</button>
+      <button class="footer-link" onclick="goPage('terms')">Terms</button>
+      <button class="footer-link" onclick="goPage('privacy')">Privacy</button>
+      <button class="footer-link" onclick="goPage('browse')">Browse Gigs</button>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 W.T.F. Freelancers · Cape Town, ZA</span>
+    <a href="Solontrich.html" class="footer-creator" title="Visit Solontrich">
+      <span class="footer-creator-label">Built by</span>
+      <img src="Solontrich.png" alt="Solontrich" class="footer-creator-logo"/>
+      <span class="footer-creator-name">Solontrich</span>
+    </a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- ── Partial loader — runs before app modules ── -->
+<script>
+(async function loadPartials() {
+  const root = document.getElementById('pages-root');
+  // Load all partials in parallel for maximum speed
+  const partials = [
+    'partials/auth.html',
+    'partials/home.html',
+    'partials/browse.html',
+    'partials/profile.html',
+    'partials/gigs.html',
+    'partials/checkout.html',
+    'partials/info.html',
+  ];
+
+  try {
+    const htmlChunks = await Promise.all(
+      partials.map(url => fetch(url).then(r => {
+        if (!r.ok) throw new Error(`Failed to load ${url}`);
+        return r.text();
+      }))
+    );
+    root.innerHTML = htmlChunks.join('\n');
+  } catch (err) {
+    console.error('Partial load error:', err);
+    root.innerHTML = '<p style="padding:40px;color:#ff4560;font-family:monospace">Failed to load app sections. Please refresh.</p>';
+  }
+
+  // Signal that the DOM is ready for the app module
+  window._partialsReady = true;
+  window.dispatchEvent(new Event('partials-ready'));
+})();
+</script>
+
+<!-- ── App module — deferred until partials injected ── -->
+<script type="module">
+  // Wait for partials before booting
+  await new Promise(resolve => {
+    if (window._partialsReady) return resolve();
+    window.addEventListener('partials-ready', resolve, { once: true });
+  });
+  // Dynamically import so it runs after DOM is populated
+  await import('./js/app.js');
+</script>
+
+</body>
+</html>
