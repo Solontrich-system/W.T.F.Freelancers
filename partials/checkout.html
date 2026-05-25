@@ -1,0 +1,74 @@
+<!-- ══════════ CHECKOUT ══════════ -->
+<section id="page-checkout" class="page">
+  <div class="post-page" style="max-width:520px">
+    <button class="back-btn" onclick="goPage('gig')">← Back</button>
+    <h2 class="post-title">Checkout</h2>
+    <div class="checkout-summary" id="checkout-summary"></div>
+    <div class="pay-method-selector">
+      <div class="pay-method-btn active" id="pm-card"   onclick="selectPayMethod('card')">  <span>💳</span><br>Card</div>
+      <div class="pay-method-btn"        id="pm-paypal" onclick="selectPayMethod('paypal')"><span>🅿️</span><br>PayPal</div>
+      <div class="pay-method-btn"        id="pm-crypto" onclick="selectPayMethod('crypto')"><span>₿</span><br>Crypto</div>
+    </div>
+    <div id="pay-card" class="pay-form">
+      <div class="form-group"><label class="form-label">Full name</label><input class="form-input" id="card-name" placeholder="Name on card"/></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="card-email" type="email" placeholder="you@email.com"/></div>
+      <div class="form-group"><label class="form-label">Card number</label><input class="form-input" id="card-number" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="fmtCard(this)"/></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Expiry</label><input class="form-input" id="card-expiry" placeholder="MM / YY" maxlength="7" oninput="fmtExpiry(this)"/></div>
+        <div class="form-group"><label class="form-label">CVV</label><input class="form-input" id="card-cvv" placeholder="•••" maxlength="4" type="password"/></div>
+      </div>
+      <div class="info-box">🔒 Only the last 4 digits are stored. Full card data is never saved.</div>
+    </div>
+    <div id="pay-paypal" class="pay-form" style="display:none">
+      <div class="paypal-panel">
+        <div class="paypal-logo">PayPal</div>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:14px;line-height:1.6">Send payment to the seller's PayPal address below, then paste your reference here.</p>
+        <div class="paypal-address-box" id="paypal-seller-email">Loading…</div>
+        <div class="form-group" style="margin-top:14px"><label class="form-label">Your PayPal email</label><input class="form-input" id="pp-buyer-email" type="email" placeholder="your@paypal.com"/></div>
+        <div class="form-group"><label class="form-label">Transaction reference</label><input class="form-input" id="pp-ref" placeholder="e.g. 7FH29KXYZ"/></div>
+      </div>
+    </div>
+    <div id="pay-crypto" class="pay-form" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Choose coin</label>
+        <div class="crypto-selector">
+          <div class="crypto-opt active" id="co-btc"  onclick="selectCrypto('btc')">₿ BTC</div>
+          <div class="crypto-opt"        id="co-eth"  onclick="selectCrypto('eth')">⟠ ETH</div>
+          <div class="crypto-opt"        id="co-usdt" onclick="selectCrypto('usdt')">₮ USDT</div>
+        </div>
+      </div>
+      <div class="crypto-address-card">
+        <div class="cac-label" id="cac-label">Send to:</div>
+        <div class="cac-address" id="cac-address">Loading…</div>
+        <button class="copy-btn" onclick="copyAddress()">📋 Copy address</button>
+        <div class="cac-network" id="cac-network"></div>
+      </div>
+      <div class="form-group" style="margin-top:14px"><label class="form-label">Your email</label><input class="form-input" id="crypto-email" type="email" placeholder="you@email.com"/></div>
+      <div class="form-group"><label class="form-label">Transaction hash <span>(paste after sending)</span></label><input class="form-input" id="crypto-txhash" placeholder="0x… or txid…"/></div>
+      <div class="info-box">📌 Send the exact amount then paste your transaction hash above.</div>
+    </div>
+    <button class="submit-btn" id="checkout-btn" onclick="submitPayment()">Confirm &amp; Pay</button>
+  </div>
+</section>
+
+<!-- ══════════ TRANSACTIONS ══════════ -->
+<section id="page-txns" class="page">
+  <div style="padding:28px 28px 0">
+    <div class="section-header" style="flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Transactions</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select class="form-select" id="txn-filter" style="width:auto;padding:7px 12px;font-size:13px" onchange="renderTxns()">
+          <option value="all">All methods</option><option value="card">💳 Card</option>
+          <option value="paypal">🅿️ PayPal</option><option value="crypto">₿ Crypto</option>
+        </select>
+        <select class="form-select" id="txn-status-filter" style="width:auto;padding:7px 12px;font-size:13px" onchange="renderTxns()">
+          <option value="all">All statuses</option><option value="pending">Pending</option>
+          <option value="completed">Completed</option><option value="failed">Failed</option>
+        </select>
+      </div>
+    </div>
+    <div class="txn-stats" id="txn-stats"></div>
+  </div>
+  <div id="txns-loading" class="loading-state">Loading transactions…</div>
+  <div id="txns-list" style="padding:0 28px 40px"></div>
+</section>

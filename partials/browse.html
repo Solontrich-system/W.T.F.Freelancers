@@ -1,0 +1,13 @@
+<!-- ══════════ BROWSE ══════════ -->
+<section id="page-browse" class="page">
+  <div class="browse-header">
+    <h2 class="section-title" style="margin-bottom:14px">Browse Services</h2>
+    <div class="search-bar">
+      <input class="search-input" placeholder="Search services, sellers…" id="search-input" oninput="renderBrowse()"/>
+      <button class="btn-primary" onclick="renderBrowse()">Search</button>
+    </div>
+    <div class="filter-row" id="filter-chips"></div>
+  </div>
+  <div id="browse-loading" class="loading-state" style="display:none">Fetching…</div>
+  <div class="gigs-grid" id="browse-gigs"></div>
+</section>

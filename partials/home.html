@@ -1,0 +1,52 @@
+<!-- ══════════ HOME ══════════ -->
+<section id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✦ We The Freelancer — A Multi-User System</div>
+      <h1>Find the perfect <em>freelancer</em> for any project</h1>
+      <p>Browse services from vetted professionals. Pay by card, PayPal, or crypto — all records secured in the cloud.</p>
+      <div class="hero-actions">
+        <button class="btn-primary"   onclick="goPage('browse')">Explore Services</button>
+        <button class="btn-secondary" id="hero-sell-btn" onclick="heroSell()">Sell Your Skills</button>
+      </div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="stat-gigs">0</div><div class="stat-label">Active gigs</div></div>
+    <div class="stat"><div class="stat-num" id="stat-orders">0</div><div class="stat-label">Orders placed</div></div>
+    <div class="stat"><div class="stat-num" id="stat-txns">0</div><div class="stat-label">Transactions</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Payment methods</div></div>
+  </div>
+  <div class="pay-badges-row">
+    <div class="pay-badge"><span>💳</span> Card</div>
+    <div class="pay-badge"><span>🅿️</span> PayPal</div>
+    <div class="pay-badge"><span>₿</span> Bitcoin</div>
+    <div class="pay-badge"><span>⟠</span> Ethereum</div>
+    <div class="pay-badge"><span>₮</span> USDT</div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Browse by category</h2>
+      <button class="see-all" onclick="goPage('browse')">See all →</button>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card" onclick="filterBrowse('Design')">        <div class="cat-icon">🎨</div><div class="cat-name">Design</div></div>
+      <div class="cat-card" onclick="filterBrowse('Development')">   <div class="cat-icon">💻</div><div class="cat-name">Development</div></div>
+      <div class="cat-card" onclick="filterBrowse('Writing')">       <div class="cat-icon">✍️</div><div class="cat-name">Writing</div></div>
+      <div class="cat-card" onclick="filterBrowse('Marketing')">     <div class="cat-icon">📣</div><div class="cat-name">Marketing</div></div>
+      <div class="cat-card" onclick="filterBrowse('Video')">         <div class="cat-icon">🎬</div><div class="cat-name">Video</div></div>
+      <div class="cat-card" onclick="filterBrowse('Music & Audio')"> <div class="cat-icon">🎵</div><div class="cat-name">Music &amp; Audio</div></div>
+      <div class="cat-card" onclick="filterBrowse('Business')">      <div class="cat-icon">📊</div><div class="cat-name">Business</div></div>
+      <div class="cat-card" onclick="filterBrowse('AI Services')">   <div class="cat-icon">🤖</div><div class="cat-name">AI Services</div></div>
+    </div>
+  </div>
+  <div class="section" style="margin-top:32px">
+    <div class="section-header">
+      <h2 class="section-title">Featured gigs</h2>
+      <button class="see-all" onclick="goPage('browse')">See all →</button>
+    </div>
+    <div id="home-loading" class="loading-state">Loading gigs…</div>
+    <div class="gigs-grid" id="home-gigs"></div>
+  </div>
+</section>

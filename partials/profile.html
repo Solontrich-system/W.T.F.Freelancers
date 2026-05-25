@@ -1,0 +1,60 @@
+<!-- ══════════ PROFILE ══════════ -->
+<section id="page-profile" class="page">
+  <div class="profile-header">
+    <div class="profile-top">
+      <div class="profile-avatar" id="profile-avatar-big">?</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profile-fullname">Loading…</div>
+        <div class="profile-title" id="profile-role-label">—</div>
+        <div class="profile-tags" id="profile-tags"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-self:flex-start">
+        <button class="btn-secondary" style="font-size:13px;padding:9px 14px" onclick="goPage('payout')">💳 Payout Details</button>
+        <button class="btn-primary"   style="font-size:13px;padding:9px 14px" onclick="goPage('post')">+ Post Gig</button>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div class="pstat"><div class="pstat-num" id="profile-gig-count">0</div><div class="pstat-label">My gigs</div></div>
+      <div class="pstat"><div class="pstat-num" id="profile-order-count">0</div><div class="pstat-label">Orders</div></div>
+      <div class="pstat"><div class="pstat-num" id="profile-txn-count">0</div><div class="pstat-label">Transactions</div></div>
+      <div class="pstat"><div class="pstat-num" id="profile-pending-count">0</div><div class="pstat-label">Pending</div></div>
+    </div>
+  </div>
+  <div class="profile-body">
+    <div class="section-label">About me</div>
+    <p class="about-text" id="profile-bio">No bio yet.</p>
+    <button class="link-btn" style="margin-bottom:22px" onclick="goPage('edit-profile')">✏️ Edit profile</button>
+    <div class="section-label">My gigs <span style="font-size:11px;color:var(--muted);font-weight:400">(from database)</span></div>
+    <div id="profile-loading" class="loading-state">Loading…</div>
+    <div class="gigs-grid" id="profile-gigs"></div>
+    <div class="section-label" style="margin-top:28px">Payment stats</div>
+    <div class="earnings-grid">
+      <div class="earn-card"><div class="earn-label">Completed</div><div class="earn-num amber" id="earn-completed">0</div></div>
+      <div class="earn-card"><div class="earn-label">Pending</div><div class="earn-num" id="earn-pending">0</div></div>
+      <div class="earn-card"><div class="earn-label">Card</div><div class="earn-num" id="earn-card">0</div></div>
+      <div class="earn-card"><div class="earn-label">Crypto</div><div class="earn-num" id="earn-crypto">0</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EDIT PROFILE ══════════ -->
+<section id="page-edit-profile" class="page">
+  <div class="post-page">
+    <button class="back-btn" onclick="goPage('profile')">← Back</button>
+    <h2 class="post-title">Edit Profile</h2>
+    <p class="post-sub">Update your public profile information.</p>
+    <div class="form-group"><label class="form-label">Full name</label><input class="form-input" id="ep-fullname" placeholder="Your full name"/></div>
+    <div class="form-group"><label class="form-label">Display name <span>(shown on gigs)</span></label><input class="form-input" id="ep-display" placeholder="e.g. Alex J."/></div>
+    <div class="form-group"><label class="form-label">Bio</label><textarea class="form-textarea" id="ep-bio" placeholder="Tell clients about yourself…"></textarea></div>
+    <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="ep-location" placeholder="e.g. Cape Town, ZA"/></div>
+    <div class="form-group">
+      <label class="form-label">I am a</label>
+      <select class="form-select" id="ep-role">
+        <option value="buyer">Buyer (client)</option>
+        <option value="freelancer">Freelancer</option>
+        <option value="both">Both</option>
+      </select>
+    </div>
+    <button class="submit-btn" id="ep-save-btn" onclick="saveProfile()">Save Changes</button>
+  </div>
+</section>

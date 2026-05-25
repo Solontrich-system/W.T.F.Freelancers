@@ -1,0 +1,107 @@
+<!-- ══════════ POST GIG ══════════ -->
+<section id="page-post" class="page">
+  <div class="post-page">
+    <h2 class="post-title">Post a new gig</h2>
+    <p class="post-sub">List your service. Buyers pay directly via your saved payout method.</p>
+    <div class="step-indicator"><div class="step done"></div><div class="step done"></div><div class="step done"></div></div>
+    <div class="form-group"><label class="form-label">Gig title</label><input class="form-input" id="gig-title" placeholder="e.g. I will design a modern logo for your brand"/></div>
+    <div class="form-group">
+      <label class="form-label">Category</label>
+      <select class="form-select" id="gig-cat">
+        <option value="">Choose a category…</option>
+        <option>Design</option><option>Development</option><option>Writing</option>
+        <option>Marketing</option><option>Video</option><option>Music &amp; Audio</option>
+        <option>Business</option><option>AI Services</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="gig-desc" placeholder="What's included, your process…"></textarea></div>
+    <div class="form-group">
+      <label class="form-label">Fixed price (USD)</label>
+      <div class="price-input-wrap"><span class="price-prefix">$</span><input class="form-input" type="number" id="gig-price" placeholder="0" min="5"/></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Delivery time</label>
+      <select class="form-select" id="gig-delivery">
+        <option>1 day</option><option>3 days</option><option>5 days</option>
+        <option>7 days</option><option>14 days</option><option>30 days</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Thumbnail emoji</label><div class="emoji-picker" id="emoji-picker"></div></div>
+    <div class="info-box">💡 Make sure your <button class="link-btn" onclick="goPage('payout')">payout details</button> are saved so buyers can pay you.</div>
+    <button class="submit-btn" id="submit-btn" onclick="submitGig()">Publish Gig →</button>
+  </div>
+</section>
+
+<!-- ══════════ PAYOUT DETAILS ══════════ -->
+<section id="page-payout" class="page">
+  <div class="post-page">
+    <button class="back-btn" onclick="goPage('profile')">← Back</button>
+    <h2 class="post-title">Payout Details</h2>
+    <p class="post-sub">Clients see these when paying for your gigs. Add at least one method.</p>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-bank"   onclick="switchPayoutTab('bank')">🏦 Bank</button>
+      <button class="tab-btn"        id="tab-paypal" onclick="switchPayoutTab('paypal')">🅿️ PayPal</button>
+      <button class="tab-btn"        id="tab-crypto" onclick="switchPayoutTab('crypto')">₿ Crypto</button>
+    </div>
+    <div id="payout-bank" class="payout-tab">
+      <div class="form-group"><label class="form-label">Bank name</label><input class="form-input" id="po-bank-name" placeholder="e.g. FNB, Standard Bank"/></div>
+      <div class="form-group"><label class="form-label">Account holder name</label><input class="form-input" id="po-account-name" placeholder="Full name on account"/></div>
+      <div class="form-group"><label class="form-label">Account number</label><input class="form-input" id="po-account-number" placeholder="Your account number"/></div>
+      <div class="form-group"><label class="form-label">Branch / Sort code</label><input class="form-input" id="po-branch" placeholder="e.g. 250655"/></div>
+      <div class="form-group"><label class="form-label">SWIFT / BIC <span>(international)</span></label><input class="form-input" id="po-swift" placeholder="e.g. FIRNZAJJ"/></div>
+    </div>
+    <div id="payout-paypal" class="payout-tab" style="display:none">
+      <div class="info-box" style="margin-bottom:18px">🅿️ Buyers send PayPal payments directly to your email. Confirm manually once received.</div>
+      <div class="form-group"><label class="form-label">PayPal email</label><input class="form-input" id="po-paypal-email" type="email" placeholder="your@paypal.com"/></div>
+    </div>
+    <div id="payout-crypto" class="payout-tab" style="display:none">
+      <div class="info-box" style="margin-bottom:18px">₿ Buyers see whichever wallet matches their coin choice.</div>
+      <div class="form-group"><label class="form-label">₿ Bitcoin (BTC) address</label><input class="form-input" id="po-btc" placeholder="bc1q…"/></div>
+      <div class="form-group"><label class="form-label">⟠ Ethereum (ETH) address</label><input class="form-input" id="po-eth" placeholder="0x…"/></div>
+      <div class="form-group"><label class="form-label">₮ USDT address</label><input class="form-input" id="po-usdt" placeholder="0x… or T…"/></div>
+      <div class="form-group">
+        <label class="form-label">USDT network</label>
+        <select class="form-select" id="po-crypto-network">
+          <option value="">Select network…</option>
+          <option>ERC-20 (Ethereum)</option><option>TRC-20 (Tron)</option><option>BEP-20 (BSC)</option>
+        </select>
+      </div>
+    </div>
+    <button class="submit-btn" id="payout-save-btn" onclick="savePayoutDetails()">Save Payout Details</button>
+  </div>
+</section>
+
+<!-- ══════════ GIG DETAIL ══════════ -->
+<section id="page-gig" class="page">
+  <div class="gig-detail">
+    <button class="back-btn" onclick="goPage('browse')">← Back to browse</button>
+    <div class="gig-detail-layout">
+      <div class="gig-detail-main">
+        <div class="gig-detail-thumb" id="detail-thumb"></div>
+        <h2 class="gig-detail-title"  id="detail-title"></h2>
+        <div class="gig-detail-meta">
+          <span class="detail-meta-item" id="detail-seller"></span>
+          <span class="detail-meta-item" id="detail-rating"></span>
+          <span class="detail-meta-item" id="detail-orders-count"></span>
+        </div>
+        <p class="gig-detail-desc" id="detail-desc"></p>
+        <div class="section-label">What's included</div>
+        <ul class="includes-list">
+          <li>Full source files delivered</li><li>Unlimited revisions</li>
+          <li>Commercial use rights</li><li>Direct communication throughout</li>
+        </ul>
+        <div class="section-label" style="margin-top:22px">Seller accepts payment via</div>
+        <div id="seller-pay-methods" class="seller-pay-methods">Loading…</div>
+      </div>
+      <div class="gig-detail-sidebar">
+        <div class="order-card">
+          <div class="order-price"    id="detail-price"></div>
+          <div class="order-delivery" id="detail-delivery"></div>
+          <button class="order-btn" id="order-btn" onclick="openCheckout()">Buy Now →</button>
+          <button class="contact-btn" id="contact-seller-btn" onclick="openSellerChatFromGig()">💬 Message Seller</button>
+          <div class="secure-note">🔒 All transactions recorded on W.T.F.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

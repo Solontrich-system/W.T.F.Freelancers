@@ -1,0 +1,63 @@
+<!-- ══════════ LOGIN ══════════ -->
+<section id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo"><img src="logo.png" alt="WTF"/></div>
+      <h2 class="auth-title">Welcome back</h2>
+      <p class="auth-sub">Log in to your W.T.F. account</p>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="login-email" type="email" placeholder="you@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="login-password" type="password" placeholder="••••••••"/>
+      </div>
+      <div class="auth-error" id="login-error"></div>
+      <button class="submit-btn" id="login-btn" onclick="doLogin()">Log in</button>
+      <p class="auth-switch">Don't have an account? <button class="link-btn" onclick="goPage('register')">Sign up</button></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ REGISTER ══════════ -->
+<section id="page-register" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo"><img src="logo.png" alt="WTF"/></div>
+      <h2 class="auth-title">Create account</h2>
+      <p class="auth-sub">Join W.T.F. Freelancers — free forever</p>
+      <div class="form-group">
+        <label class="form-label">Full name</label>
+        <input class="form-input" id="reg-name" placeholder="Your full name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Display name <span>(shown on gigs)</span></label>
+        <input class="form-input" id="reg-display" placeholder="e.g. Alex J."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reg-email" type="email" placeholder="you@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password <span>(min 8 characters)</span></label>
+        <input class="form-input" id="reg-password" type="password" placeholder="Create a password"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">I want to</label>
+        <select class="form-select" id="reg-role">
+          <option value="buyer">Buy services (client)</option>
+          <option value="freelancer">Sell services (freelancer)</option>
+          <option value="both">Both buy and sell</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Location <span>(optional)</span></label>
+        <input class="form-input" id="reg-location" placeholder="e.g. Cape Town, ZA"/>
+      </div>
+      <div class="auth-error" id="reg-error"></div>
+      <button class="submit-btn" id="reg-btn" onclick="doRegister()">Create account</button>
+      <p class="auth-switch">Already have an account? <button class="link-btn" onclick="goPage('login')">Log in</button></p>
+    </div>
+  </div>
+</section>
